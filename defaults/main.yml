@@ -1,0 +1,20 @@
+---
+# defaults variable file
+fluentd_user: fluentd
+
+install_type: gem
+gem_version: "1.7.4"
+
+package_url: https://toolbelt.treasuredata.com/sh/install-redhat-td-agent3.sh
+
+default_config_dir: "/etc/fluent"
+default_config_file: fluent.conf
+config: {}
+
+default_service_name: fluentd
+default_exe_path: /usr/local/bin
+extra_run_args: []
+
+perform_uninstall: false
+
+custom_unit_properties: {}
