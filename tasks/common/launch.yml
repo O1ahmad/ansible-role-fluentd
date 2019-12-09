@@ -1,0 +1,35 @@
+---
+- name: Determine service name
+  set_fact:
+    service_name: "{{ 'td-agent' if install_type == 'package' else default_service_name }}"
+
+- name: Determine default service unit configurations
+  set_fact:
+    default_service_unit:
+      ExecStart: "{{default_exe_path }}/fluentd -c {{ config_dir }}/{{ config_file}} {{ extra_run_args|join(' ') }}"
+      User: "{{ fluentd_user }}"
+      Group: "{{ fluentd_user }}"
+      StandardOutput: journal
+      StandardError: inherit
+
+- name: Setup {{ service_name }} systemd unit
+  include_role:
+    name: 0x0i.systemd
+  vars:
+    unit_config:
+      - name: "{{ service_name }}"
+        Unit:
+          Description: fluentd
+          Documentation: https://www.fluentd.org
+          Wants: network-online.target
+          After: network-online.target
+        Service: "{{ default_service_unit | combine(custom_unit_properties) }}"
+        Install:
+          WantedBy: multi-user.target
+  when: install_type == 'gem'
+
+- name: Ensure start of {{ service_name }} service
+  service:
+    name: "{{ service_name }}"
+    state: started
+    enabled: "yes"
