@@ -1,20 +1,6 @@
 ---
-- name: Ensure existence of Fluentd config directory
-  file:
-    path: "{{ config_dir }}"
-    state: directory
-    owner: "{{ fluentd_user }}"
-    group: "{{ fluentd_user }}"
-  become: true
-
-- name: Copy fluentd configuration in place
-  template:
-    src: "fluent.conf.j2"
-    dest: "{{ config_dir }}/{{ config_file }}"
-    owner: "{{ fluentd_user }}"
-    group: "{{ fluentd_user }}"
-    mode: 0644
-    backup: true
-  vars:
-    options: "{{ config }}"
-  become: true
+- name: render fluentd configurations
+  include: common/config/fluent_conf.yml
+  loop: "{{ config }}"
+  loop_control:
+    loop_var: conf

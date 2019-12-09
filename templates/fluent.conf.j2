@@ -1,15 +1,18 @@
 # Managed by Ansible (0xOI/ansible-role-fluentd)
 # see https://docs.fluentd.org/configuration/config-file for more details
 
-{% for spec in config %}
-{% if 'comment' in spec %}
-# {{ spec.comment }} {{ '{{{' }}
+{% for directive in directives %}
+{% if 'comment' in directive %}
+# {{ directive.comment }}
 {% endif %}
-{% for directive in spec.directives %}
-{% for cmd,flags in entry.items() %}
-{{ cmd }} {{ flags }}
+{% if 'content' in directive %}
+{{ directive.content }}
+{% else %}
+<{{ directive.plugin }} {{ directive.match|default('') }}>
+{% for param,value in directive.attributes.items() %}
+   {{ param }} {{ value }}
 {% endfor %}
-{% endfor %}
-" }}}
+</{{ directive.plugin }}>
+{% endif %}
 
 {% endfor %}

@@ -77,3 +77,9 @@ suites:
     verifier:
       inspec_tests:
         - path: test/integration/install/package_install
+  - name: fluent_conf
+    provisioner:
+      playbook: test/integration/config/fluent_conf/default_playbook.yml
+    verifier:
+      inspec_tests:
+        - path: test/integration/config/fluent_conf

@@ -5,7 +5,7 @@
 
 - name: Determine configuration file name
   set_fact:
-    config_file: "{{ 'td-agent.conf' if install_type == 'package' else default_config_file }}"
+    config_file: "{{ 'td-agent' if install_type == 'package' else default_config_file }}"
 
 #######  Authentication setup #######
 
