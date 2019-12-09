@@ -37,29 +37,6 @@ platforms:
   - name: centos-7
     driver_config:
       <<: *default_driver_config
-  - name: fedora-28
-    driver_config:
-      <<: *default_driver_config
-  - name: fedora-30
-    driver_config:
-      <<: *default_driver_config
-      provision_command:
-        - sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
-        - systemctl enable sshd.service
-        - yum -y install python-pip
-    provisioner:
-      require_pip: true
-      ansible_cfg_path: test/ansible.cfg
-  - name: fedora-31
-    driver_config:
-      <<: *default_driver_config
-      provision_command:
-        - sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
-        - systemctl enable sshd.service
-        - yum -y install python-pip
-    provisioner:
-      require_pip: true
-      ansible_cfg_path: test/ansible.cfg
   - name: ubuntu-16.04
     driver_config:
       <<: *default_driver_config
@@ -67,12 +44,6 @@ platforms:
         - sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
         - systemctl enable ssh.service
   - name: ubuntu-18.04
-    driver_config:
-      <<: *default_driver_config
-      provision_command:
-        - sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
-        - systemctl enable ssh.service
-  - name: ubuntu-19.04
     driver_config:
       <<: *default_driver_config
       provision_command:
@@ -100,3 +71,9 @@ suites:
     verifier:
       inspec_tests:
         - path: test/integration/install/gem_install
+  - name: package_install
+    provisioner:
+      playbook: test/integration/install/package_install/default_playbook.yml
+    verifier:
+      inspec_tests:
+        - path: test/integration/install/package_install

@@ -6,11 +6,12 @@
 - name: Determine default service unit configurations
   set_fact:
     default_service_unit:
-      ExecStart: "{{default_exe_path }}/fluentd -c {{ config_dir }}/{{ config_file}} {{ extra_run_args|join(' ') }}"
+      ExecStart: "{{ default_exe_path }}/fluentd -c {{ config_dir }}/{{ config_file }} {{ extra_run_args | join(' ') }}"
       User: "{{ fluentd_user }}"
       Group: "{{ fluentd_user }}"
       StandardOutput: journal
       StandardError: inherit
+  when: install_type == "gem"
 
 - name: Setup {{ service_name }} systemd unit
   include_role:

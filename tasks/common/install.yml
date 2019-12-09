@@ -36,12 +36,12 @@
   when: install_type == "package"
 
 - name: Install fluentd gem
-  shell: "gem install fluentd -v {{ gem_version }}"
+  command: "gem install fluentd -v {{ gem_version }}"
   become: true
   when: install_type == "gem"
 
 - name: Execute fluentd setup
-  shell: "{{ default_exe_path }}/fluentd --setup {{ config_dir }}"
+  command: "{{ default_exe_path }}/fluentd --setup {{ config_dir }}"
   when: install_type == "gem"
 
 - name: Execute Fluentd package install script
