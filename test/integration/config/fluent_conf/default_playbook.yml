@@ -23,6 +23,12 @@
           - name: "test-pipeline"
             path: /etc/td-agent/conf.d
             directives:
+              - comment: set pipeline global log-level
+                plugin: system
+                attributes:
+                  log_level: debug
+                content: |
+                  @include /etc/td-agent/conf.d/*.conf
               - plugin: source
                 attributes:
                   "@type": http
