@@ -11,6 +11,7 @@
       Group: "{{ fluentd_user }}"
       StandardOutput: journal
       StandardError: inherit
+  when: install_type == "gem"
 
 - name: Setup {{ service_name }} systemd unit
   include_role:
