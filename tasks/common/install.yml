@@ -1,0 +1,51 @@
+---
+- name: Determine configuration directory
+  set_fact:
+    config_dir: "{{ '/etc/td-agent' if install_type == 'package' else default_config_dir }}"
+
+- name: Determine configuration file name
+  set_fact:
+    config_file: "{{ 'td-agent.conf' if install_type == 'package' else default_config_file }}"
+
+#######  Authentication setup #######
+
+- name: Ensure Fluentd group exists
+  group:
+    name: "{{ fluentd_user }}"
+    state: present
+  become: true
+
+- name: Create Fluentd user
+  user:
+    comment: Fluentd service account
+    name: "{{ fluentd_user }}"
+    group: "{{ fluentd_user }}"
+  become: true
+
+#######  Source installation #######
+
+- name: Download Fluentd package install script ({{ package_url }})
+  get_url:
+    url: "{{ package_url }}"
+    dest: "/tmp/{{ package_url | urlsplit('path') | basename }}"
+    owner: "{{ fluentd_user }}"
+    group: "{{ fluentd_user }}"
+    mode: '0775'
+  register: package_tmp
+  become: true
+  when: install_type == "package"
+
+- name: Install fluentd gem
+  command: "gem install fluentd -v {{ gem_version }}"
+  become: true
+  when: install_type == "gem"
+
+- name: Execute fluentd setup
+  command: "{{ default_exe_path }}/fluentd --setup {{ config_dir }}"
+  when: install_type == "gem"
+
+- name: Execute Fluentd package install script
+  script:
+    cmd: "{{ package_tmp.dest }}"
+  become: true
+  when: install_type == "package"
