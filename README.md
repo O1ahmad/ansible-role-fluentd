@@ -1,4 +1,4 @@
-Ansible Role :signal_strength: :cyclone: Fluentd
+Ansible Role :signal_strength: :cyclone: :incoming_envelope: Fluentd
 =========
 [![Galaxy Role](https://img.shields.io/ansible/role/45215.svg)](https://galaxy.ansible.com/0x0I/fluentd)
 [![Downloads](https://img.shields.io/ansible/role/d/45215.svg)](https://galaxy.ansible.com/0x0I/fluentd)
