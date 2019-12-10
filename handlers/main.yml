@@ -1,2 +1,10 @@
 ---
-# default handlers file
+- name: reload {{ service_name }}
+  service:
+    name: "{{ service_name }}"
+    state: reloaded
+
+- name: restart {{ service_name }}
+  service:
+    name: "{{ service_name }}"
+    state: restarted

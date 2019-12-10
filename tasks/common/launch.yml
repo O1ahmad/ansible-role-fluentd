@@ -6,8 +6,7 @@
 - name: Set unit [Service] configuration
   set_fact:
     default_service_unit:
-      ExecStart: "{{ default_exe_path }}/{{ service_name }} -c {{ config_dir }}/{{ config_file }} /
-      {{ extra_run_args|join(' ') }}"
+      ExecStart: "{{ default_exe_path }}/{{ service_name }} -c {{ config_dir }}/{{ config_file }}.conf {{ extra_run_args|join(' ') }}"
       User: "{{ fluentd_user }}"
       Group: "{{ fluentd_user }}"
       StandardOutput: journal
