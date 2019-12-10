@@ -95,3 +95,15 @@ suites:
     verifier:
       inspec_tests:
         - path: test/integration/launch/fluentd_gem
+  - name: plugin_install_by_fluentd
+    provisioner:
+      playbook: test/integration/install/plugins_by_fluentd/default_playbook.yml
+    verifier:
+      inspec_tests:
+        - path: test/integration/install/plugins_by_fluentd
+  - name: plugin_install_by_tdagent
+    provisioner:
+      playbook: test/integration/install/plugins_by_tdagent/default_playbook.yml
+    verifier:
+      inspec_tests:
+        - path: test/integration/install/plugins_by_tdagent

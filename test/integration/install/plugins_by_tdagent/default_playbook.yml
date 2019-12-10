@@ -1,0 +1,11 @@
+---
+- name: Default playbook for testing
+  hosts: test-kitchen
+  roles:
+    - role: ansible-role-fluentd
+      vars:
+        install_type: package
+        plugins:
+          - name: fluent-plugin-assert
+          - name: fluent-plugin-prometheus
+            version: 1.7.0

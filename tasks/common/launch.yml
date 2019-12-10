@@ -1,8 +1,4 @@
 ---
-- name: Determine service name
-  set_fact:
-    service_name: "{{ 'td-agent' if install_type == 'package' else default_service_name }}"
-
 - name: Set unit [Service] configuration
   set_fact:
     default_service_unit:

@@ -9,7 +9,7 @@ package_url: ''
 
 default_config_dir: "/etc/fluent"
 default_config_file: fluent
-config: {}
+config: []
 
 default_service_name: fluentd
 default_exe_path: /usr/local/bin
@@ -18,3 +18,6 @@ extra_run_args: []
 perform_uninstall: false
 
 custom_unit_properties: {}
+
+plugins: []
+default_plugin_exe: "fluent-gem"
