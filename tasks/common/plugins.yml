@@ -3,3 +3,5 @@
   command: "{{ exe_path }}/{{ plugin_exe }} install {{ item.name }}{{ ' -v ' + item.version if ('version' in item) else '' }}"
   loop: "{{ plugins }}"
   when: plugins is defined and plugins is not none
+  notify:
+    - restart service

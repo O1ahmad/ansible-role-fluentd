@@ -8,6 +8,8 @@
       StandardOutput: journal
       StandardError: inherit
   when: install_type == 'gem'
+  notify:
+    - reload service
 
 - name: Setup fluentd systemd unit
   include_role:
