@@ -19,3 +19,5 @@
     directives: "{{ conf.directives }}"
   become: true
   when: conf.directives is defined and conf.directives is not none
+  notify:
+    - restart service

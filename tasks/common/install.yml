@@ -1,5 +1,4 @@
 ---
-
 #######  Authentication setup #######
 
 - name: Ensure Fluentd group exists
@@ -42,3 +41,5 @@
     cmd: "{{ package_tmp.dest }}"
   become: true
   when: install_type == "package"
+  notify:
+    - restart service
