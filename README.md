@@ -39,7 +39,7 @@ Variables are available and organized according to the following software & mach
 
 #### Install
 
-`elasticsearch`can be installed using OS package management systems (e.g `apt`, `yum`) or compressed archives (`.tar`, `.zip`) downloaded and extracted from various sources.
+`fluentd`can be installed using OS package management systems (e.g `apt`, `yum`) or as a stand-alone Ruby gem obtained from the official Ruby community gem hosting site.
 
 _The following variables can be customized to control various aspects of this installation process, ranging from software version and source location of binaries to the installation directory where they are stored:_
 
@@ -52,15 +52,19 @@ _The following variables can be customized to control various aspects of this in
 - version of `fluentd` gem to install. Reference [here](https://rubygems.org/gems/fluentd) for a list of available versions. *ONLY* relevant when `install_type` is set to **gem**
 
 `package_url: <path-or-url-to-package>` (**default**: see `defaults/main.yml`)
-- address of a **Debian or RPM** package containing `td-agent` source and binaries. Note that the installation layout is determined by the package management systems. Consult Fluentd's official documentation for both [RPM](https://docs.fluentd.org/installation/install-by-rpm) and [Debian](https://docs.fluentd.org/installation/install-by-deb) installation details. *ONLY* relevant when `install_type` is set to **package**
+- address of a **Debian or RPM** package containing `td-agent` source and binaries.
+
+Note that the installation layout is determined by the package management systems. Consult Fluentd's official documentation for both [RPM](https://docs.fluentd.org/installation/install-by-rpm) and [Debian](https://docs.fluentd.org/installation/install-by-deb) installation details. *ONLY* relevant when `install_type` is set to **package**
 
 #### Config
 
-Configuration of `fluentd` is expressed within a single configuration file, *fluentd.conf or td-agent.conf (depending on install type)*. By default, the file is located in a designated config directory determined by the installation type though it's location can be customized by setting the environment variable `FLUENT_CONF` within the services execution environment to the desired location. The configuration file allows the user to control the input and output behavior of Fluentd by (1) selecting input and output plugins and (2) specifying the plugin parameters. It is required for Fluentd to operate properly.
+Configuration of `fluentd` is expressed within a single configuration file, *fluentd.conf or td-agent.conf (depending on install type)*. By default, the file is located in a designated config directory determined by the installation type though it's location can be customized by setting the environment variable `FLUENT_CONF` within the services execution environment to the desired location.
+
+The configuration file allows the user to control the input and output behavior of Fluentd by (1) selecting input and output plugins and (2) specifying the plugin parameters. It is required for Fluentd to operate properly.
 
 See `fluentd`'s official [configuration guide](https://docs.fluentd.org/configuration) for more details.
 
-_The following variable can be customized to manage the content of this configuration file:_
+_The following variable can be customized to manage the content of this configuration file and others to included by the **@include** directive:_
 
 `config: <list-of-plugin-settings-hashes>` **default**: {}
 
@@ -78,13 +82,13 @@ Utilizing this role, each directive to be rendered in the default configuration 
 ```yaml
 config:
   - directives:
-    - comment: Listen on localhost:2411 for source data injections
+    - comment: Directive specified by attributes -- Listen on localhost:2411 for source data injections
       plugin: source
       attributes:
         "@type": http
         "@id": example
         port: 2411
-    - comment: Add hostname where data was emitted from
+    - comment: Directive specified by content field -- Add hostname where data was emitted from
       plugin: filter
       content: |
         <filter example>
