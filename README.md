@@ -160,12 +160,65 @@ default example:
   - role: 0xOI.fluentd
 ```
 
-...:
+install specific version of fluentd gem
 ```
 - hosts: all
   roles:
     - role: 0xOI.fluentd
       vars:
+        install_type: gem
+        gem_version: 1.8.0
+```
+
+include all custom configurations defined separately from default config:
+```
+- hosts: all
+  roles:
+    - role: 0xOI.fluentd
+      vars:
+        config:
+          - directives:
+              - comment: include all custom directive configurations
+                plugin: include
+                content: |
+                  @include /etc/td-agent/conf.d/*.conf
+          - name: "example-pipeline"
+            path: /etc/td-agent/conf.d
+            directives:
+              - plugin: source
+                attributes:
+                  "@type": stdin
+                  format: none
+                  tag: example.input
+              - plugin: match
+                match: "example.*"
+                attributes:
+                  "@type": stdout
+```
+
+add directives for debugging/troubleshooting
+```
+- hosts: all
+  roles:
+    - role: 0xOI.fluentd
+      vars:
+        install_type: package
+        config:
+          - directives:
+              - comment: set pipeline global log-level
+                plugin: system
+                attributes:
+                  log_level: debug
+              - comment: activate debug-agent listening on specified port
+                plugin: source
+                attributes:
+                  "@type": debug_agent
+                  bind: 127.0.0.1
+                  port: 24230
+              - plugin: match
+                match: "*"
+                attributes:
+                  "@type": stdout
 ```
 
 License
