@@ -46,7 +46,7 @@ _The following variables can be customized to control various aspects of this in
 `install_type: <package | gem>` (**default**: gem)
 - **package**: maintained by the Treasure Data organization for Debian and Redhat distributions, package installation of `fluentd` pulls the specified package from the respective package `td-agent` management repository. See `fluentd`'s official [installation guide](https://docs.fluentd.org/installation) for more details.
   - Note that the installation directory is determined by the package management system and currently defaults to `/opt/td-agent` for both distros.
-- **gem**: installs fluentd gem from the offical Ruby gem's community hosting site, [rubygems.org](https://rubygems.org).
+- **gem**: installs fluentd gem from the offical Ruby gems community hosting site, [rubygems.org](https://rubygems.org).
 
 `gem_version: <string>` (**default**: `1.7.4`)
 - version of `fluentd` gem to install. Reference [here](https://rubygems.org/gems/fluentd) for a list of available versions. *ONLY* relevant when `install_type` is set to **gem**
