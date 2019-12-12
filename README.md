@@ -43,68 +43,81 @@ Variables are available and organized according to the following software & mach
 
 _The following variables can be customized to control various aspects of this installation process, ranging from software version and source location of binaries to the installation directory where they are stored:_
 
-`install_type: <package | archive>` (**default**: archive)
-- **package**: supported by Debian and Redhat distributions, package installation of Elasticsearch pulls the specified package from the respective package management repository.
-  - Note that the installation directory is determined by the package management system and currently defaults to `/usr/share` for both distros. Attempts to set and execute a package installation on other Linux distros will result in failure due to lack of support.
-- **archive**: compatible with both **tar and zip** formats, archived installation binaries can be obtained from local and remote compressed archives either from the official [download/releases](https://www.elastic.co/downloads/elasticsearch) site or those generated from development/custom sources.
+`install_type: <package | gem>` (**default**: gem)
+- **package**: maintained by the Treasure Data organization for Debian and Redhat distributions, package installation of `fluentd` pulls the specified package from the respective package `td-agent` management repository. See `fluentd`'s official [installation guide](https://docs.fluentd.org/installation) for more details.
+  - Note that the installation directory is determined by the package management system and currently defaults to `/opt/td-agent` for both distros.
+- **gem**: installs fluentd gem from the offical Ruby gem's community hosting site, [rubygems.org](https://rubygems.org).
 
-`default_install_dir: </path/to/installation/dir>` (**default**: `/opt/elasticsearch`)
-- path on target host where the `elasticsearch` binaries should be extracted to. *ONLY* relevant when `install_type` is set to **archive**.
-
-`archive_url: <path-or-url-to-archive>` (**default**: see `defaults/main.yml`)
-- address of a compressed **tar or zip** archive containing `elasticsearch` binaries. This method technically supports installation of any available version of `elasticsearch`. Links to official versions can be found [here](https://www.elastic.co/downloads/past-releases#elasticsearch). *ONLY* relevant when `install_type` is set to **archive**
-
-`archive_checksum: <path-or-url-to-checksum>` (**default**: see `defaults/main.yml`)
-- address of a checksum file for verifying the data integrity of the specified archive. While recommended and generally considered a best practice, specifying a checksum is *not required* and can be disabled by providing an empty string (`''`) for its value. *ONLY* relevant when `install_type` is set to **archive**.
+`gem_version: <string>` (**default**: `1.7.4`)
+- version of `fluentd` gem to install. Reference [here](https://rubygems.org/gems/fluentd) for a list of available versions. *ONLY* relevant when `install_type` is set to **gem**
 
 `package_url: <path-or-url-to-package>` (**default**: see `defaults/main.yml`)
-- address of a **Debian or RPM** package containing `elasticsearch` source and binaries. Note that the installation layout is determined by the package management systems. Consult Elastic's official documentation for both [RPM](https://www.elastic.co/guide/en/elasticsearch/reference/current/rpm.html) and [Debian](https://www.elastic.co/guide/en/elasticsearch/reference/current/deb.html) installation details. *ONLY* relevant when `install_type` is set to **package**
-
-`package_checksum: <path-or-url-to-checksum>` (**default**: see `vars/...`)
-- address of a checksum file for verifying the data integrity of the specified package. While recommended and generally considered a best practice, specifying a checksum is *not required* and can be disabled by providing an empty string (`''`) for its value. *ONLY* relevant when `install_type` is set to **package**.
-
-`checksum_format: <string>` (**default**: see `sha512`)
-- hash algorithm used for file verification associated with the specified archive or package checksum. Reference [here](https://en.wikipedia.org/wiki/Cryptographic_hash_function) for more information about checksums/cryptographic hashes. 
+- address of a **Debian or RPM** package containing `td-agent` source and binaries. Note that the installation layout is determined by the package management systems. Consult Fluentd's official documentation for both [RPM](https://docs.fluentd.org/installation/install-by-rpm) and [Debian](https://docs.fluentd.org/installation/install-by-deb) installation details. *ONLY* relevant when `install_type` is set to **package**
 
 #### Config
 
-Configuration of `elasticsearch` is expressed within 3 files:
-- `elasticsearch.yml` for configuring Elasticsearch
-- `jvm.options` for configuring Elasticsearch JVM settings
-- `log4j2.properties` for configuring Elasticsearch logging
+Configuration of `fluentd` is expressed within a single configuration file, *fluentd.conf or td-agent.conf (depending on install type)*. By default, the file is located in a designated config directory determined by the installation type though it's location can be customized by setting the environment variable `FLUENT_CONF` within the services execution environment to the desired location. The configuration file allows the user to control the input and output behavior of Fluentd by (1) selecting input and output plugins and (2) specifying the plugin parameters. It is required for Fluentd to operate properly.
 
-These files are located in the config directory, which as previously mentioned, depends on whether or not the installation is from an archive distribution (tar.gz or zip) or a package distribution (Debian or RPM packages).
+See `fluentd`'s official [configuration guide](https://docs.fluentd.org/configuration) for more details.
 
-For additional details and to get an idea how each config should look, reference Elastic's official [configuration](https://www.elastic.co/guide/en/elasticsearch/reference/current/settings.html) documentation.
+_The following variable can be customized to manage the content of this configuration file:_
 
-_The following variables can be customized to manage the location and content of these configuration files:_
+`config: <list-of-plugin-settings-hashes>` **default**: {}
 
-`default_config_dir: </path/to/configuration/dir>` (**default**: `/opt/elasticsearch/config`)
-- path on target host where the aforementioned configuration files should be stored
+- `{fluent|td-agent}.conf` consists of specifications of fluentd plugins, which manage various aspects or directives of the log and data ingestion process. These directives are as follows:
+   - **source**: determine the input sources.
+   - **match**: determine the output destinations.
+   - **filter**: determine the event processing pipelines.
+   - **system**: set system wide configuration.
+   - **label**: group the output and filter for internal routing
+   - **@include**: include other files
 
-`managed_configs: <list of configs to manage>` (**default**: see `defaults/main.yml`)
-- list of configuration files to manage with this Ansible role
+Utilizing this role, each directive to be rendered in the default configuration file or any included by the **@include** directive is fully expressible via two forms, either a hash of directive attributes or a single `content` key with a value representing an actual directive definition. See below for examples.
 
-  Allowed values are any combination of:
-  - `elasticsearch_config`
-  - `jvm_options`
-  - `log4j_properties`
+#### Example
+```yaml
+config:
+  - directives:
+    - comment: Listen on localhost:2411 for source data injections
+      plugin: source
+      attributes:
+        "@type": http
+        "@id": example
+        port: 2411
+    - comment: Add hostname where data was emitted from
+      plugin: filter
+      content: |
+        <filter example>
+          @type record_transformer
+          <record>
+            hostname "#{Socket.gethostname}"
+          </record>
+        </filter>
+    - plugin: match
+      match: "test.*"
+      attributes:
+        "@type": stdout
+```
+`[config: {list-entry} :] name: <string>` (**default**: *fluentd | td-agent*)
+- [optional] As previously mentioned, the **@include** directive allows configuration files to be loaded from locations across the host file-system. This parameter represents the name of the configuration file to render a set of directives (to follow) in as well as the name of the file that would be a part of such an **@include**.
 
-`config: <hash-of-elasticsearch-settings>` **default**: {}
+`[config: {list-entry} :] path: <string>` (**default**: */etc/fluentd | /etc/td-agent*)
+- [optional] In the same sense, this parameter represents the path to the configuration file on the local host.
 
-- The configuration file should contain settings which are node-specific (such as *node.name* and *paths*), or settings which a node requires in order to be able to join a cluster.
+`[config: {list-entry} :] directives: <list-of-hashes>` (**default**: *none*)
+- list of directive hashes to render in the configuration file specified by the above parameters.
 
-Any configuration setting/value key-pair supported by `elasticsearch` should be expressible within the hash and properly rendered within the associated YAML config. Values can be expressed in typical _yaml/ansible_ form (e.g. Strings, numbers and true/false values should be written as is and without quotes).
+`[config: {list-entry} : directives: {list-entry}:] comment: <string>` (**default**: *none*)
+- comment associated with plugin directive
 
-  Keys of the `config` hash can be either nested or delimited by a '.':
-  ```yaml
-  config:
-    node.name: example-node
-    path:
-      logs: /var/log/elasticsearch
-  ```
-  
-A list of configurable settings can be found [here](https://github.com/elastic/elasticsearch/tree/master/docs/reference/modules).
+`[config: {list-entry} : directives: {list-entry}:] plugin: <string>` (**default**: *none*)
+- type of plugin directive
+
+`[config: {list-entry} : directives: {list-entry}:] attributes: <hash>` (**default**: *none*)
+- directive specific attributes to include in definition. See `fluentd`'s official [built-in](https://docs.fluentd.org/input) or [community](https://www.fluentd.org/plugins) plugin list for the set of available attributes for each plugin.
+
+`[config: {list-entry} : directives: {list-entry}:] content: <string>` (**default**: *none*)
+- [optional] actual representation of the directive definition. Value can contain YAML formatting as appropriate.
 
 #### Launch
 
