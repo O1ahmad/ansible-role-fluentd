@@ -160,7 +160,7 @@ default example:
   - role: 0xOI.fluentd
 ```
 
-install specific version of fluentd gem
+install specific version of fluentd gem:
 ```
 - hosts: all
   roles:
@@ -196,7 +196,7 @@ include all custom configurations defined separately from default config:
                   "@type": stdout
 ```
 
-add directives for debugging/troubleshooting
+add directives for debugging/troubleshooting:
 ```
 - hosts: all
   roles:
