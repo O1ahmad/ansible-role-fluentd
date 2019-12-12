@@ -120,6 +120,9 @@ config:
 `[config: {list-entry} : directives: {list-entry}:] plugin: <string>` (**default**: *none*)
 - type of plugin directive
 
+`[config: {list-entry} : directives: {list-entry}:] match: <string>` (**default**: *none*)
+- regular expression to match with **match** directives. *ONLY* relevant when `plugin` is set to **match**
+
 `[config: {list-entry} : directives: {list-entry}:] attributes: <hash>` (**default**: *none*)
 - directive specific attributes to include in definition. See `fluentd`'s official [built-in](https://docs.fluentd.org/input) or [community](https://www.fluentd.org/plugins) sites for the set of available attributes for each plugin.
 
