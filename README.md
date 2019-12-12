@@ -41,7 +41,7 @@ Variables are available and organized according to the following software & mach
 
 `fluentd`can be installed using OS package management systems (e.g `apt`, `yum`) or as a stand-alone Ruby gem obtained from the official Ruby community gem hosting site.
 
-_The following variables can be customized to control various aspects of this installation process, ranging from software version and source location of binaries to the installation directory where they are stored:_
+_The following variables can be customized to control various aspects of this installation process, ranging from software version and source location of binaries to the installation type (and ultimately, installation directory where they are stored):_
 
 `install_type: <package | gem>` (**default**: gem)
 - **package**: maintained by the Treasure Data organization for Debian and Redhat distributions, package installation of `fluentd` pulls the specified package from the respective package `td-agent` management repository. See `fluentd`'s official [installation guide](https://docs.fluentd.org/installation) for more details.
@@ -55,6 +55,9 @@ _The following variables can be customized to control various aspects of this in
 - address of a **Debian or RPM** package containing `td-agent` source and binaries.
 
 Note that the installation layout is determined by the package management systems. Consult Fluentd's official documentation for both [RPM](https://docs.fluentd.org/installation/install-by-rpm) and [Debian](https://docs.fluentd.org/installation/install-by-deb) installation details. *ONLY* relevant when `install_type` is set to **package**
+
+`plugins: <list-of-strings>` (**default**: `[]`)
+- list of `fluentd` plugins to install. See `fluentd`'s [community](https://www.fluentd.org/plugins) site for the set of available plugins.
 
 #### Config
 
@@ -118,26 +121,26 @@ config:
 - type of plugin directive
 
 `[config: {list-entry} : directives: {list-entry}:] attributes: <hash>` (**default**: *none*)
-- directive specific attributes to include in definition. See `fluentd`'s official [built-in](https://docs.fluentd.org/input) or [community](https://www.fluentd.org/plugins) plugin list for the set of available attributes for each plugin.
+- directive specific attributes to include in definition. See `fluentd`'s official [built-in](https://docs.fluentd.org/input) or [community](https://www.fluentd.org/plugins) sites for the set of available attributes for each plugin.
 
 `[config: {list-entry} : directives: {list-entry}:] content: <string>` (**default**: *none*)
 - [optional] actual representation of the directive definition. Value can contain YAML formatting as appropriate.
 
 #### Launch
 
-Running the `elasticsearch` search and analytics service along with its API server is accomplished utilizing the [systemd](https://www.freedesktop.org/wiki/Software/systemd/) service management tool for both *package* and *archive* installations. Launched as background processes or daemons subject to the configuration and execution potential provided by the underlying management framework, launch of `elsaticsearch` can be set to adhere to system administrative policies right for your environment and organization.
+Running the `fluentd` data collector is accomplished utilizing the [systemd](https://www.freedesktop.org/wiki/Software/systemd/) service management tool for both *package* and *gem* installations. Launched as background processes or daemons subject to the configuration and execution potential provided by the underlying management framework, launch of `fluentd` can be set to adhere to system administrative policies right for your environment and organization.
 
 _The following variables can be customized to manage the service's **systemd** service unit definition and execution profile/policy:_
 
 `extra_run_args: <elasticsearch-cli-options>` (**default**: `[]`)
-- list of `elasticsearch` commandline arguments to pass to the binary at runtime for customizing launch. Supporting full expression of `elasticsearch`'s cli, this variable enables the launch to be customized according to the user's specification.
+- list of `fluentd` commandline arguments to pass to the binary at runtime for customizing launch. Supporting full expression of `fluentd`'s cli, this variable enables the launch to be customized according to the user's specification.
 
 `custom_unit_properties: <hash-of-systemd-service-settings>` (**default**: `[]`)
-- hash of settings used to customize the [Service] unit configuration and execution environment of the Elasticsearch **systemd** service.
+- hash of settings used to customize the [Service] unit configuration and execution environment of the Fluentd **systemd** service.
 
 ```yaml
 custom_unit_properties:
-  Environment: "ES_HOME={{ install_dir }}"
+  Environment: "FLUENT_CONF={{ /path/to/custom/config.conf }}"
   LimitNOFILE: infinity
 ```
 
