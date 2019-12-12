@@ -115,7 +115,7 @@ config:
 - list of directive hashes to render in the configuration file specified by the above parameters.
 
 `[config: {list-entry} : directives: {list-entry}:] comment: <string>` (**default**: *none*)
-- comment associated with plugin directive
+- [optional] comment associated with plugin directive
 
 `[config: {list-entry} : directives: {list-entry}:] plugin: <string>` (**default**: *none*)
 - type of plugin directive
@@ -124,7 +124,7 @@ config:
 - directive specific attributes to include in definition. See `fluentd`'s official [built-in](https://docs.fluentd.org/input) or [community](https://www.fluentd.org/plugins) sites for the set of available attributes for each plugin.
 
 `[config: {list-entry} : directives: {list-entry}:] content: <string>` (**default**: *none*)
-- [optional] actual representation of the directive definition. Value can contain YAML formatting as appropriate.
+- actual representation of the directive definition. Value can contain YAML formatting as appropriate.
 
 #### Launch
 
