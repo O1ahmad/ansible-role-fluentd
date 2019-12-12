@@ -140,7 +140,7 @@ _The following variables can be customized to manage the service's **systemd** s
 
 ```yaml
 custom_unit_properties:
-  Environment: "FLUENT_CONF={{ /path/to/custom/config.conf }}"
+  Environment: "FLUENT_CONF=/path/to/custom/config.conf"
   LimitNOFILE: infinity
 ```
 
