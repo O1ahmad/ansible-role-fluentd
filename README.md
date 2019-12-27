@@ -1,4 +1,4 @@
-<p><img src="https://raw.githubusercontent.com/fluent/fluentd-docs/master/public/logo/Fluentd_square.png" alt="fluentd logo" title="fluentd" align="right" height="60" /></p>
+<p><img src="https://coralogix.com/wp-content/uploads/2018/04/FluentD.jpg" alt="fluentd logo" title="fluentd" align="right" height="60" /></p>
 
 Ansible Role :cyclone: :ticket: Fluentd
 =========
