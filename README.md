@@ -1,3 +1,5 @@
+<p><img src="https://raw.githubusercontent.com/fluent/fluentd-docs/master/public/logo/Fluentd_square.png" alt="fluentd logo" title="fluentd" align="right" height="60" /></p>
+
 Ansible Role :cyclone: :ticket: Fluentd
 =========
 [![Galaxy Role](https://img.shields.io/ansible/role/45215.svg)](https://galaxy.ansible.com/0x0I/fluentd)
