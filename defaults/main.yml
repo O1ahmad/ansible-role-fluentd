@@ -8,7 +8,7 @@ gem_version: "1.7.4"
 package_url: ''
 
 default_config_dir: "/etc/fluent"
-default_config_file: fluent
+default_config_file: fluent.conf
 config: []
 
 default_service_name: fluentd
@@ -21,3 +21,5 @@ custom_unit_properties: {}
 
 plugins: []
 default_plugin_exe: "fluent-gem"
+
+pkg_systemd_path: /usr/lib/systemd/system/td-agent.service

@@ -1,10 +1,19 @@
 ---
+- name: Ensure config dir is updated accordingly during package installation
+  become: true
+  lineinfile:
+    path: "{{ pkg_systemd_path }}"
+    regexp: '^Environment=FLUENT_CONF='
+    line: "Environment=FLUENT_CONF={{ config_dir }}"
+  when: install_type == "package"
+
 - name: Set unit [Service] configuration
   set_fact:
     default_service_unit:
-      ExecStart: "{{ default_exe_path }}/{{ service_name }} -c {{ config_dir }}/{{ config_file }}.conf {{ extra_run_args|join(' ') }}"
+      ExecStart: "{{ default_exe_path }}/{{ service_name }} {{ extra_run_args|join(' ') }}"
       User: "{{ fluentd_user }}"
       Group: "{{ fluentd_user }}"
+      Environment: "FLUENT_CONF={{ config_dir }}/{{ config_file }}"
       StandardOutput: journal
       StandardError: inherit
   when: install_type == 'gem'
