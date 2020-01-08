@@ -2,17 +2,21 @@
 #######  Authentication setup #######
 
 - name: Ensure Fluentd group exists
+  become: true
   group:
     name: "{{ fluentd_user }}"
     state: present
-  become: true
+    system: true
 
 - name: Create Fluentd user
+  become: true
   user:
     comment: Fluentd service account
     name: "{{ fluentd_user }}"
     group: "{{ fluentd_user }}"
-  become: true
+    shell: "/sbin/nologin"
+    system: true
+    create_home: false
 
 #######  Source installation #######
 

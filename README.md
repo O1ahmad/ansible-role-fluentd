@@ -43,6 +43,9 @@ Variables are available and organized according to the following software & mach
 
 _The following variables can be customized to control various aspects of this installation process, ranging from software version and source location of binaries to the installation type (and ultimately, installation directory where they are stored):_
 
+`fluentd_user: <service-user-name>` (**default**: *fluentd*)
+- dedicated service user and group used by `fluentd` for privilege separation (see [here](https://www.beyondtrust.com/blog/entry/how-separation-privilege-improves-security) for details)
+
 `install_type: <package | gem>` (**default**: gem)
 - **package**: maintained by the Treasure Data organization for Debian and Redhat distributions, package installation of `fluentd` pulls the specified package from the respective package `td-agent` management repository. See `fluentd`'s official [installation guide](https://docs.fluentd.org/installation) for more details.
   - Note that the installation directory is determined by the package management system and currently defaults to `/opt/td-agent` for both distros.
