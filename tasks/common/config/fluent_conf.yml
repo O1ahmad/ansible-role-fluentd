@@ -10,7 +10,7 @@
 - name: Copy fluentd configuration in place
   template:
     src: "fluent.conf.j2"
-    dest: "{{ conf.path|default(config_dir) }}/{{ conf.name|default(config_file) }}.conf"
+    dest: "{{ conf.path|default(config_dir) }}/{{ conf.name|default(config_file) }}"
     owner: "{{ fluentd_user }}"
     group: "{{ fluentd_user }}"
     mode: 0644
@@ -18,6 +18,6 @@
   vars:
     directives: "{{ conf.directives }}"
   become: true
-  when: conf.directives is defined and conf.directives is not none
+  when: conf.directives is defined and conf.directives|length > 0
   notify:
     - restart service

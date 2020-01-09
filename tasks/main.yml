@@ -1,7 +1,4 @@
 ---
-- name: Set runtime facts
-  include_tasks: "common/runtime_facts.yml"
-
 - name: Include OS and distribution specific variables.
   include_vars: "{{ item }}"
   with_first_found:
@@ -10,14 +7,13 @@
         - "{{ ansible_os_family|lower }}.yml"
       skip: true
 
-- name: Include common installation tasks
-  include_tasks: "common/install.yml"
+- name: Include common preflight tasks
+  include_tasks: "common/preflight.yml"
 
-- name: Include common configuration tasks
-  include_tasks: "common/config.yml"
-
-- name: Include common installation tasks
-  include_tasks: "common/plugins.yml"
-
-- name: Include common launch tasks
-  include_tasks: "common/launch.yml"
+- name: Include common provisioning tasks
+  include_tasks: "common/{{ item }}.yml"
+  with_items:
+    - "install"
+    - "config"
+    - "launch"
+    - "plugins"
