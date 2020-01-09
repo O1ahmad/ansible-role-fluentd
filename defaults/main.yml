@@ -1,5 +1,4 @@
 ---
-# defaults variable file
 fluentd_user: fluentd
 
 install_type: gem
@@ -7,12 +6,12 @@ gem_version: "1.7.4"
 
 package_url: ''
 
-default_config_dir: "/etc/fluent"
-default_config_file: fluent
+config_dir: "/etc/fluent"
+config_file: fluent.conf
 config: []
 
-default_service_name: fluentd
-default_exe_path: /usr/local/bin
+service_name: fluentd
+exe_path: /usr/local/bin
 extra_run_args: []
 
 perform_uninstall: false
@@ -20,4 +19,4 @@ perform_uninstall: false
 custom_unit_properties: {}
 
 plugins: []
-default_plugin_exe: "fluent-gem"
+plugin_exe: "fluent-gem"

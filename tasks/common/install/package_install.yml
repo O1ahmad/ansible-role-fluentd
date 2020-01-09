@@ -1,0 +1,19 @@
+---
+- name: Download Fluentd package install script ({{ package_url }})
+  get_url:
+    url: "{{ package_url }}"
+    dest: "/tmp/{{ package_url | urlsplit('path') | basename }}"
+    owner: "{{ fluentd_user }}"
+    group: "{{ fluentd_user }}"
+    mode: '0775'
+  register: package_tmp
+  become: true
+  when: install_type == "package"
+
+- name: Execute Fluentd package install script
+  script:
+    cmd: "{{ package_tmp.dest }}"
+  become: true
+  when: install_type == "package"
+  notify:
+    - restart service

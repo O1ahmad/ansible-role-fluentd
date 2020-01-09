@@ -1,0 +1,10 @@
+---
+- name: Install fluentd gem
+  become: true
+  command: "gem install fluentd -v {{ gem_version }}"
+  when: install_type == "gem"
+
+- name: Execute fluentd setup
+  become: true
+  command: "{{ exe_path }}/fluentd --setup {{ config_dir }}"
+  when: install_type == "gem"

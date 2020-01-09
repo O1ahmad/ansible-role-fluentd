@@ -1,6 +1,4 @@
 ---
-#######  Authentication setup #######
-
 - name: Ensure Fluentd group exists
   become: true
   group:
@@ -18,32 +16,5 @@
     system: true
     create_home: false
 
-#######  Source installation #######
-
-- name: Download Fluentd package install script ({{ package_url }})
-  get_url:
-    url: "{{ package_url }}"
-    dest: "/tmp/{{ package_url | urlsplit('path') | basename }}"
-    owner: "{{ fluentd_user }}"
-    group: "{{ fluentd_user }}"
-    mode: '0775'
-  register: package_tmp
-  become: true
-  when: install_type == "package"
-
-- name: Install fluentd gem
-  command: "gem install fluentd -v {{ gem_version }}"
-  become: true
-  when: install_type == "gem"
-
-- name: Execute fluentd setup
-  command: "{{ default_exe_path }}/fluentd --setup {{ config_dir }}"
-  when: install_type == "gem"
-
-- name: Execute Fluentd package install script
-  script:
-    cmd: "{{ package_tmp.dest }}"
-  become: true
-  when: install_type == "package"
-  notify:
-    - restart service
+- name: Install based on install type
+  include_tasks: "common/install/{{ install_type }}_install.yml"
