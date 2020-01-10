@@ -1,23 +1,23 @@
 ---
 - name: Determine configuration directory
   set_fact:
-    config_dir: '/etc/td-agent'
+    _config_dir: '/etc/td-agent'
   when: install_type == 'package'
 
 - name: Determine configuration file name
   set_fact:
-    config_file: 'td-agent.conf'
+    _config_file: 'td-agent.conf'
   when: install_type == 'package'
 
 - name: Determine service name
   set_fact:
-    service_name: 'td-agent'
+    _service_name: 'td-agent'
   when: install_type == 'package'
 
 - name: Set Fluentd unit [Service] configuration
   set_fact:
-    default_service_unit:
-      ExecStart: "{{ exe_path }}/{{ service_name }} -c {{ config_dir }}/{{ config_file }} {{ extra_run_args|join(' ') }}"
+    _default_service_unit:
+      ExecStart: "{{ _exe_path }}/{{ _service_name }} -c {{ _config_dir }}/{{ _config_file }} {{ extra_run_args|join(' ') }}"
       User: "{{ fluentd_user }}"
       Group: "{{ fluentd_user }}"
       StandardOutput: journal
@@ -28,10 +28,10 @@
 
 - name: Determine plugin exe path
   set_fact:
-    exe_path: '/usr/sbin'
+    _exe_path: '/usr/sbin'
   when: install_type == 'package'
 
 - name: Determine plugin exe
   set_fact:
-    plugin_exe: 'td-agent-gem'
+    _plugin_exe: 'td-agent-gem'
   when: install_type == 'package'

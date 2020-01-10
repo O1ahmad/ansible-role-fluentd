@@ -1,6 +1,6 @@
 ---
 - name: Install list of Fluentd plugins
-  command: "{{ exe_path }}/{{ plugin_exe }} install {{ item.name }}{{ ' -v ' + item.version if ('version' in item) else '' }}"
+  command: "{{ _exe_path }}/{{ _plugin_exe }} install {{ item.name }}{{ ' -v ' + item.version if ('version' in item) else '' }}"
   loop: "{{ plugins }}"
   when: plugins is defined and plugins is not none
   notify:
