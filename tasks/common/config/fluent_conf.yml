@@ -1,7 +1,7 @@
 ---
 - name: Ensure existence of fluentd config directory
   file:
-    path: "{{ conf.path|default(config_dir) }}"
+    path: "{{ conf.path|default(_config_dir) }}"
     state: directory
     owner: "{{ fluentd_user }}"
     group: "{{ fluentd_user }}"
@@ -10,7 +10,7 @@
 - name: Copy fluentd configuration in place
   template:
     src: "fluent.conf.j2"
-    dest: "{{ conf.path|default(config_dir) }}/{{ conf.name|default(config_file) }}"
+    dest: "{{ conf.path|default(_config_dir) }}/{{ conf.name|default(_config_file) }}"
     owner: "{{ fluentd_user }}"
     group: "{{ fluentd_user }}"
     mode: 0644

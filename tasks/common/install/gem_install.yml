@@ -6,5 +6,5 @@
 
 - name: Execute fluentd setup
   become: true
-  command: "{{ exe_path }}/fluentd --setup {{ config_dir }}"
+  command: "{{ _exe_path }}/fluentd --setup {{ _config_dir }}"
   when: install_type == "gem"

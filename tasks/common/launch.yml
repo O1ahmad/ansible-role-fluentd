@@ -4,19 +4,19 @@
     name: 0x0i.systemd
   vars:
     unit_config:
-      - name: "{{ service_name }}"
+      - name: "{{ _service_name }}"
         Unit:
-          Description: "{{ service_name }}"
+          Description: "{{ _service_name }}"
           Documentation: http://www.fluentd.org
           Wants: network-online.target
           After: network-online.target
-        Service: "{{ default_service_unit | combine(custom_unit_properties) }}"
+        Service: "{{ _default_service_unit | combine(custom_unit_properties) }}"
         Install:
           WantedBy: multi-user.target
   when: install_type == 'gem'
 
-- name: Ensure start of {{ service_name }} service
+- name: Ensure start of {{ _service_name }} service
   service:
-    name: "{{ service_name }}"
+    name: "{{ _service_name }}"
     state: started
     enabled: "yes"
