@@ -9,6 +9,9 @@
   register: package_tmp
   become: true
   when: install_type == "package"
+  tags:
+    - install
+    - archive
 
 - name: Execute Fluentd package install script
   script:
@@ -17,3 +20,6 @@
   when: install_type == "package"
   notify:
     - restart service
+  tags:
+    - install
+    - archive

@@ -5,3 +5,5 @@
   when: plugins is defined and plugins is not none
   notify:
     - restart service
+  tags:
+    - plugins

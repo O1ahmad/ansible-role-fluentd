@@ -4,4 +4,6 @@
   loop: "{{ config }}"
   loop_control:
     loop_var: conf
-  when: config is defined and config is not none
+  when: config is defined and config|length > 0
+  tags:
+    - config

@@ -6,6 +6,8 @@
     owner: "{{ fluentd_user }}"
     group: "{{ fluentd_user }}"
   become: true
+  tags:
+    - config
 
 - name: Copy fluentd configuration in place
   template:
@@ -21,3 +23,5 @@
   when: conf.directives is defined and conf.directives|length > 0
   notify:
     - restart service
+  tags:
+    - config
