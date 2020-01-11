@@ -3,8 +3,14 @@
   become: true
   command: "gem install fluentd -v {{ gem_version }}"
   when: install_type == "gem"
+  tags:
+    - install
+    - gem
 
 - name: Execute fluentd setup
   become: true
   command: "{{ _exe_path }}/fluentd --setup {{ _config_dir }}"
   when: install_type == "gem"
+  tags:
+    - install
+    - gem

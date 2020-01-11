@@ -3,16 +3,22 @@
   set_fact:
     _config_dir: '/etc/td-agent'
   when: install_type == 'package'
+  tags:
+    - preflight
 
 - name: Determine configuration file name
   set_fact:
     _config_file: 'td-agent.conf'
   when: install_type == 'package'
+  tags:
+    - preflight
 
 - name: Determine service name
   set_fact:
     _service_name: 'td-agent'
   when: install_type == 'package'
+  tags:
+    - preflight
 
 - name: Set Fluentd unit [Service] configuration
   set_fact:
@@ -25,13 +31,19 @@
   when: install_type == 'gem'
   notify:
     - reload service
+  tags:
+    - preflight
 
 - name: Determine plugin exe path
   set_fact:
     _exe_path: '/usr/sbin'
   when: install_type == 'package'
+  tags:
+    - preflight
 
 - name: Determine plugin exe
   set_fact:
     _plugin_exe: 'td-agent-gem'
   when: install_type == 'package'
+  tags:
+    - preflight
