@@ -1,14 +1,4 @@
 ---
-- name: Include OS and distribution specific variables.
-  include_vars: "{{ item }}"
-  with_first_found:
-    - files:
-        - "{{ ansible_distribution|lower }}.yml"
-        - "{{ ansible_os_family|lower }}.yml"
-      skip: true
-  tags:
-    - always
-
 - name: Include common preflight tasks
   include_tasks: "common/preflight.yml"
   tags:

@@ -19,7 +19,7 @@
   become: true
   when: install_type == "package"
   notify:
-    - restart service
+    - Restart service
   tags:
     - install
     - archive

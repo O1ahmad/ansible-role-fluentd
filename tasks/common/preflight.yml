@@ -1,4 +1,14 @@
 ---
+- name: Include OS and distribution specific variables.
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+        - "{{ ansible_distribution|lower }}.yml"
+        - "{{ ansible_os_family|lower }}.yml"
+      skip: true
+  tags:
+    - always
+
 - name: Determine configuration directory
   set_fact:
     _config_dir: '/etc/td-agent'
@@ -47,3 +57,14 @@
   when: install_type == 'package'
   tags:
     - preflight
+
+- name: Check for uninstall signal
+  block:
+    - name: Broadcast uninstall signal
+      command: /bin/true
+      notify: Uninstall service
+
+    - name: End play following uninstallation
+      meta: end_play
+  when: perform_uninstall
+  ignore_errors: true

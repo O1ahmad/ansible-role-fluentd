@@ -71,45 +71,45 @@ suites:
     verifier:
       inspec_tests:
         - path: test/integration/install/install_gem
-
   - name: install_package
     provisioner:
       playbook: test/integration/install/install_package/default_playbook.yml
     verifier:
       inspec_tests:
         - path: test/integration/install/install_package
-
   - name: install_plugins_by_fluentd
     provisioner:
       playbook: test/integration/install/plugins_by_fluentd/default_playbook.yml
     verifier:
       inspec_tests:
         - path: test/integration/install/plugins_by_fluentd
-
   - name: config_fluentconf
     provisioner:
       playbook: test/integration/config/fluentconf/default_playbook.yml
     verifier:
       inspec_tests:
         - path: test/integration/config/fluentconf
-
   - name: launch_tdagent
     provisioner:
       playbook: test/integration/launch/td_agent/default_playbook.yml
     verifier:
       inspec_tests:
         - path: test/integration/launch/td_agent
-
   - name: launch_fluentd
     provisioner:
       playbook: test/integration/launch/fluentd/default_playbook.yml
     verifier:
       inspec_tests:
         - path: test/integration/launch/fluentd
-
   - name: install_plugins_by_tdagent
     provisioner:
       playbook: test/integration/install/plugins_by_tdagent/default_playbook.yml
     verifier:
       inspec_tests:
         - path: test/integration/install/plugins_by_tdagent
+  - name: uninstall
+    provisioner:
+      playbook: test/integration/uninstall/default_playbook.yml
+    verifier:
+      inspec_tests:
+        - path: test/integration/uninstall
