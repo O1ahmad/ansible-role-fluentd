@@ -14,9 +14,9 @@ _service_name: fluentd
 _exe_path: /usr/local/bin
 extra_run_args: []
 
-perform_uninstall: false
-
 custom_unit_properties: {}
 
 plugins: []
 _plugin_exe: "fluent-gem"
+
+perform_uninstall: false

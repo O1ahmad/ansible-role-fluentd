@@ -1,10 +1,42 @@
 ---
-- name: reload service
-  service:
-    name: "{{ _service_name }}"
-    state: reloaded
-
-- name: restart service
+- name: Restart Fluentd service
+  become: true
   service:
     name: "{{ _service_name }}"
     state: restarted
+  listen: Restart service
+
+- name: Stop Fluentd systemd service
+  become: true
+  service:
+    name: "{{ _service_name }}"
+    state: stopped
+    enabled: false
+  listen: Uninstall service
+
+- name: Remove Fluentd systemd service file
+  become: true
+  file:
+    path: "/etc/systemd/system/{{ _service_name }}.service"
+    state: absent
+  listen: Uninstall service
+
+- name: Remove Fluentd config dir
+  become: true
+  file:
+    path: "{{ _config_dir }}"
+    state: absent
+  listen: Uninstall service
+
+- name: Uninstall td-agent package
+  package:
+    name: td-agent
+    state: absent
+  listen: Uninstall service
+  when: install_type == "package"
+
+- name: Uninstall fluentd gem
+  become: true
+  command: "gem uninstall fluentd"
+  listen: Uninstall service
+  when: install_type == "gem"
