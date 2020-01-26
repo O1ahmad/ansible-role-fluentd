@@ -29,14 +29,15 @@
   listen: Uninstall service
 
 - name: Uninstall td-agent package
+  become: true
+  when: install_type == "package"
   package:
     name: td-agent
     state: absent
   listen: Uninstall service
-  when: install_type == "package"
 
 - name: Uninstall fluentd gem
   become: true
+  when: install_type == "gem"
   command: "gem uninstall fluentd"
   listen: Uninstall service
-  when: install_type == "gem"

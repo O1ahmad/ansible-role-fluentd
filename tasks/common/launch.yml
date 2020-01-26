@@ -1,5 +1,6 @@
 ---
 - name: Setup fluentd systemd unit
+  when: install_type == 'gem'
   include_role:
     name: 0x0i.systemd
   vars:
@@ -13,11 +14,11 @@
         Service: "{{ _default_service_unit | combine(custom_unit_properties) }}"
         Install:
           WantedBy: multi-user.target
-  when: install_type == 'gem'
   tags:
     - launch
 
 - name: Ensure start of {{ _service_name }} service
+  become: true
   service:
     name: "{{ _service_name }}"
     state: started
