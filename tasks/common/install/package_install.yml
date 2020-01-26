@@ -1,5 +1,7 @@
 ---
 - name: Download Fluentd package install script ({{ package_url }})
+  become: true
+  when: install_type == "package"
   get_url:
     url: "{{ package_url }}"
     dest: "/tmp/{{ package_url | urlsplit('path') | basename }}"
@@ -7,17 +9,15 @@
     group: "{{ fluentd_user }}"
     mode: '0775'
   register: package_tmp
-  become: true
-  when: install_type == "package"
   tags:
     - install
     - archive
 
 - name: Execute Fluentd package install script
-  script:
-    cmd: "{{ package_tmp.dest }}"
   become: true
   when: install_type == "package"
+  script:
+    cmd: "{{ package_tmp.dest }}"
   notify:
     - Restart service
   tags:
