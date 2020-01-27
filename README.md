@@ -5,6 +5,7 @@ Ansible Role :cyclone: :ticket: Fluentd
 [![Galaxy Role](https://img.shields.io/ansible/role/45215.svg)](https://galaxy.ansible.com/0x0I/fluentd)
 [![Downloads](https://img.shields.io/ansible/role/d/45215.svg)](https://galaxy.ansible.com/0x0I/fluentd)
 [![Build Status](https://travis-ci.org/0x0I/ansible-role-fluentd.svg?branch=master)](https://travis-ci.org/0x0I/ansible-role-fluentd)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Table of Contents**
   - [Supported Platforms](#supported-platforms)
@@ -243,7 +244,7 @@ add directives for debugging/troubleshooting:
 License
 -------
 
-Apache, BSD, MIT
+MIT
 
 Author Information
 ------------------
