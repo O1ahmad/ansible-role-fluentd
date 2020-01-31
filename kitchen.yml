@@ -28,6 +28,7 @@ provisioner:
   require_ruby_for_busser: false
   ansible_verbosity: 2
   ansible_verbose: true
+  ansible_cfg_path: test/ansible.cfg
   requirements_path: test/requirements-test.yml
 
 verifier:
@@ -37,6 +38,8 @@ platforms:
   - name: centos-7
     driver_config:
       <<: *default_driver_config
+    provisioner:
+      ansible_cfg_path: test/ansible-legacy.cfg
   - name: ubuntu-16.04
     driver_config:
       <<: *default_driver_config
@@ -56,6 +59,8 @@ platforms:
       provision_command:
         - sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
         - systemctl enable ssh.service
+    provisioner:
+      ansible_cfg_path: test/ansible-legacy.cfg
   - name: debian-9
     driver_config:
       <<: *default_driver_config
