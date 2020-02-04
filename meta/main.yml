@@ -1,11 +1,10 @@
 ---
-# role metadata file
 galaxy_info:
   author: Ahmad Wilson
   role_name: fluentd
   description: Fluentd, a unified and scalable logging and data collection service
   company: "O1.IO"
-  license: license (Apache, BSD, MIT)
+  license: license (MIT)
   min_ansible_version: 2.6
   platforms:
     - name: EL
