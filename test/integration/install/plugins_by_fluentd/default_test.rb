@@ -1,4 +1,4 @@
-title "Default role td-agent plugin installation integration test suite"
+title "Fluentd plugin installation integration tests"
 
 describe file('/usr/local/bin/fluent-gem') do
   it { should exist }

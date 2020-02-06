@@ -1,4 +1,4 @@
-title "Default role td-agent plugin installation integration test suite"
+title "td-agent plugin installation integration tests"
 
 describe file('/usr/sbin/td-agent-gem') do
   it { should exist }

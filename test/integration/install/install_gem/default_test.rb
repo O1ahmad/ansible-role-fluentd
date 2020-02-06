@@ -1,4 +1,4 @@
-title "Default role gem installation integration test suite"
+title "Fluentd gem installation integration tests"
 
 describe file('/usr/local/bin/fluentd') do
   it { should exist }

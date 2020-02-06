@@ -1,4 +1,4 @@
-title "Default role fluentd gem service launch test suite"
+title "Fluentd launch integration tests"
 
 describe service('fluentd') do
   it { should be_running }
