@@ -1,4 +1,4 @@
-title "Default role td-agent fluentd service launch test suite"
+title "Fluentd/td-agent uninstallation integration tests"
 
 describe service('td-agent') do
   it { should_not be_running }

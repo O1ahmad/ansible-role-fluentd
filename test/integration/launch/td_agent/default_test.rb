@@ -1,4 +1,4 @@
-title "Default role td-agent package service launch test suite"
+title "td-agent launch integration tests"
 
 describe service('td-agent') do
   it { should be_running }

@@ -1,4 +1,4 @@
-title "Default role fluent.conf configuration test suite"
+title "Fluentd configuration integration tests"
 
 describe file('/etc/td-agent/td-agent.conf') do
   it { should exist }

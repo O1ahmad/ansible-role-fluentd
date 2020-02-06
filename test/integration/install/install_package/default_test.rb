@@ -1,4 +1,4 @@
-title "Default role installation integration test suite"
+title "td-agent package installation integration tests"
 
 describe file('/usr/sbin/td-agent') do
   it { should exist }
