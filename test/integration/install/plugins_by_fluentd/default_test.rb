@@ -8,6 +8,6 @@ describe command('/usr/local/bin/fluent-gem list | grep fluent-plugin-assert') d
   its('exit_status') { should eq 0 }
 end
 
-describe command('/usr/local/bin/fluent-gem list | grep fluent-plugin-systemd') do
+describe command('/usr/local/bin/fluent-gem list | grep fluent-plugin-prometheus') do
   its('exit_status') { should eq 0 }
 end

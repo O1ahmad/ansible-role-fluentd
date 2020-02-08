@@ -23,5 +23,6 @@
     name: "{{ _service_name }}"
     state: started
     enabled: "yes"
+  register: svc_start
   tags:
     - launch
