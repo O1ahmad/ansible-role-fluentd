@@ -5,10 +5,6 @@
     - role: ansible-role-fluentd
       vars:
         install_type: package
-        plugins:
-          - name: fluent-plugin-assert
-          - name: fluent-plugin-prometheus
-            version: 1.7.0
         config:
           - directives:
               - plugin: source
