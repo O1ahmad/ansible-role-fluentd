@@ -1,6 +1,5 @@
 ---
 - name: Render fluentd configurations
-  when: config is defined and config|length > 0
   include: common/config/fluent_conf.yml
   loop: "{{ config }}"
   loop_control:

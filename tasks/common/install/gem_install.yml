@@ -19,10 +19,10 @@
 
 - name: Execute fluentd setup
   become: true
+  when: install_type == "gem"
   command:
     cmd: "{{ _exe_path }}/fluentd --setup {{ _config_dir }}"
     creates: "{{ _config_dir }}/{{ _config_file }}"
-  when: install_type == "gem"
   tags:
     - install
     - gem
