@@ -10,27 +10,28 @@
     - always
 
 - name: Determine configuration directory
+  when: install_type == 'package'
   set_fact:
     _config_dir: '/etc/td-agent'
-  when: install_type == 'package'
   tags:
     - preflight
 
 - name: Determine configuration file name
+  when: install_type == 'package'
   set_fact:
     _config_file: 'td-agent.conf'
-  when: install_type == 'package'
   tags:
     - preflight
 
 - name: Determine service name
+  when: install_type == 'package'
   set_fact:
     _service_name: 'td-agent'
-  when: install_type == 'package'
   tags:
     - preflight
 
 - name: Set Fluentd unit [Service] configuration
+  when: install_type == 'gem'
   set_fact:
     _default_service_unit:
       ExecStart: "{{ _exe_path }}/{{ _service_name }} -c {{ _config_dir }}/{{ _config_file }} {{ extra_run_args|join(' ') }}"
@@ -38,33 +39,35 @@
       Group: "{{ fluentd_user }}"
       StandardOutput: journal
       StandardError: inherit
-  when: install_type == 'gem'
   notify:
     - reload service
   tags:
     - preflight
 
 - name: Determine plugin exe path
+  when: install_type == 'package'
   set_fact:
     _exe_path: '/usr/sbin'
-  when: install_type == 'package'
   tags:
     - preflight
 
 - name: Determine plugin exe
+  when: install_type == 'package'
   set_fact:
     _plugin_exe: 'td-agent-gem'
-  when: install_type == 'package'
   tags:
     - preflight
 
 - name: Check for uninstall signal
+  when: perform_uninstall
   block:
     - name: Broadcast uninstall signal
       command: /bin/true
       notify: Uninstall service
-
+  always:
+    - name: Flush handlers
+      meta: flush_handlers
     - name: End play following uninstallation
       meta: end_play
-  when: perform_uninstall
-  ignore_errors: true
+  tags:
+    - preflight

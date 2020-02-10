@@ -1,10 +1,12 @@
 ---
 - name: Restart Fluentd service
   become: true
+  changed_when: false
   service:
     name: "{{ _service_name }}"
     state: restarted
   listen: Restart service
+  ignore_errors: true
 
 - name: Stop Fluentd systemd service
   become: true
@@ -13,6 +15,7 @@
     state: stopped
     enabled: false
   listen: Uninstall service
+  ignore_errors: true
 
 - name: Remove Fluentd systemd service file
   become: true

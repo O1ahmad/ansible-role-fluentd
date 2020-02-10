@@ -13,7 +13,7 @@ end
 
 describe file('/etc/td-agent/td-agent.conf') do
   it { should exist }
-  its('owner') { should eq 'fluentd' }
-  its('group') { should eq 'fluentd' }
+  its('owner') { should eq 'root' }
+  its('group') { should eq 'root' }
   its('mode') { should cmp '0644' }
 end

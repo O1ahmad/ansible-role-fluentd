@@ -19,7 +19,7 @@
   script:
     cmd: "{{ package_tmp.dest }}"
   register: script_result
-  changed_when: '"Nothing to do" not in script_result.stdout'
+  changed_when: '_package_install_noop_msg not in script_result.stdout'
   notify:
     - Restart service
   tags:
