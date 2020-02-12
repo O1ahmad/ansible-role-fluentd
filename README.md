@@ -178,14 +178,14 @@ default example:
 ```
 - hosts: all
   roles:
-  - role: 0xOI.fluentd
+  - role: 0x0I.fluentd
 ```
 
 install specific version of fluentd gem:
 ```
 - hosts: all
   roles:
-    - role: 0xOI.fluentd
+    - role: 0x0I.fluentd
       vars:
         install_type: gem
         gem_version: 1.8.0
@@ -195,7 +195,7 @@ include all custom configurations defined separately from default config:
 ```
 - hosts: all
   roles:
-    - role: 0xOI.fluentd
+    - role: 0x0I.fluentd
       vars:
         config:
           - directives:
@@ -221,7 +221,7 @@ add directives for debugging/troubleshooting:
 ```
 - hosts: all
   roles:
-    - role: 0xOI.fluentd
+    - role: 0x0I.fluentd
       vars:
         install_type: package
         config:
