@@ -3,9 +3,10 @@
 Ansible Role :cyclone: :ticket: Fluentd
 =========
 [![Galaxy Role](https://img.shields.io/ansible/role/45215.svg)](https://galaxy.ansible.com/0x0I/fluentd)
-[![Downloads](https://img.shields.io/ansible/role/d/45215.svg)](https://galaxy.ansible.com/0x0I/fluentd)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/0x0I/ansible-role-fluentd?color=yellow)
+[![Downloads](https://img.shields.io/ansible/role/d/45215.svg?color=lightgrey)](https://galaxy.ansible.com/0x0I/fluentd)
 [![Build Status](https://travis-ci.org/0x0I/ansible-role-fluentd.svg?branch=master)](https://travis-ci.org/0x0I/ansible-role-fluentd)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
 
 **Table of Contents**
   - [Supported Platforms](#supported-platforms)
@@ -57,12 +58,12 @@ _The following variables can be customized to control various aspects of this in
 - **gem**: installs fluentd gem from the offical Ruby gems community hosting site, [rubygems.org](https://rubygems.org).
 
 `gem_version: <string>` (**default**: `1.7.4`)
-- version of `fluentd` gem to install. Reference [here](https://rubygems.org/gems/fluentd) for a list of available versions. *ONLY* relevant when `install_type` is set to **gem**
+- version of `fluentd` gem to install. Reference [here](https://rubygems.org/gems/fluentd) for a list of available versions.
 
 `package_url: <path-or-url-to-package>` (**default**: see `defaults/main.yml`)
 - address of a **Debian or RPM** package containing `td-agent` source and binaries.
 
-Note that the installation layout is determined by the package management systems. Consult Fluentd's official documentation for both [RPM](https://docs.fluentd.org/installation/install-by-rpm) and [Debian](https://docs.fluentd.org/installation/install-by-deb) installation details. *ONLY* relevant when `install_type` is set to **package**
+Note that the installation layout is determined by the package management systems. Consult Fluentd's official documentation for both [RPM](https://docs.fluentd.org/installation/install-by-rpm) and [Debian](https://docs.fluentd.org/installation/install-by-deb) installation details.
 
 `plugins: <list-of-strings>` (**default**: `[]`)
 - list of `fluentd` plugins to install. See `fluentd`'s [community](https://www.fluentd.org/plugins) site for the set of available plugins.
@@ -117,10 +118,10 @@ config:
 - [optional] As previously mentioned, the **@include** directive allows configuration files to be loaded from locations across the host file-system. This parameter represents the name of the configuration file to render a set of directives (to follow) in as well as the name of the file that would be a part of such an **@include**.
 
 `[config: {list-entry} :] path: <string>` (**default**: */etc/fluentd | /etc/td-agent*)
-- [optional] In the same sense, this parameter represents the path to the configuration file on the local host.
+- [optional] represents the path to the configuration file on the local host
 
 `[config: {list-entry} :] directives: <list-of-hashes>` (**default**: *none*)
-- list of directive hashes to render in the configuration file specified by the above parameters.
+- list of directive hashes to render in the configuration file specified by the above parameters
 
 `[config: {list-entry} : directives: {list-entry}:] comment: <string>` (**default**: *none*)
 - [optional] comment associated with plugin directive
@@ -129,7 +130,7 @@ config:
 - type of plugin directive
 
 `[config: {list-entry} : directives: {list-entry}:] match: <string>` (**default**: *none*)
-- regular expression to match with **match** directives. *ONLY* relevant when `plugin` is set to **match**
+- regular expression to match with **match** directives
 
 `[config: {list-entry} : directives: {list-entry}:] attributes: <hash>` (**default**: *none*)
 - directive specific attributes to include in definition. See `fluentd`'s official [built-in](https://docs.fluentd.org/input) or [community](https://www.fluentd.org/plugins) sites for the set of available attributes for each plugin.
@@ -143,7 +144,7 @@ Running the `fluentd` data collector is accomplished utilizing the [systemd](htt
 
 _The following variables can be customized to manage the service's **systemd** service unit definition and execution profile/policy:_
 
-`extra_run_args: <elasticsearch-cli-options>` (**default**: `[]`)
+`extra_run_args: <fluentd-cli-options>` (**default**: `[]`)
 - list of `fluentd` commandline arguments to pass to the binary at runtime for customizing launch. Supporting full expression of `fluentd`'s cli, this variable enables the launch to be customized according to the user's specification.
 
 `custom_unit_properties: <hash-of-systemd-service-settings>` (**default**: `[]`)
