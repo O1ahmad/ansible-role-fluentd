@@ -1,3 +1,4 @@
+<p><img src="https://code.benco.io/icon-collection/logos/ansible.svg" alt="ansible logo" title="ansible" align="left" height="60" /></p>
 <p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTO8QjLQz_23H_dpfCmt6qDze_oIN-fZMbuaLfZbIZTp4bFrJ4M&s" alt="fluentd logo" title="fluentd" align="right" height="60" /></p>
 
 Ansible Role :cyclone: :ticket: Fluentd
