@@ -34,7 +34,7 @@ Ansible role that installs and configures Fluentd, a unified and scalable loggin
 Requirements
 ------------
 
-Requires the `unzip/gtar` utility to be installed on the target host. See ansible `unarchive` module [notes](https://docs.ansible.com/ansible/latest/modules/unarchive_module.html#notes) for details.
+A Ruby environment for gem installation types. 
 
 Role Variables
 --------------
