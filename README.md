@@ -137,7 +137,7 @@ config:
 - directive specific attributes to include in definition. See `fluentd`'s official [built-in](https://docs.fluentd.org/input) or [community](https://www.fluentd.org/plugins) sites for the set of available attributes for each plugin.
 
 `[config: {list-entry} : directives: {list-entry}:] content: <string>` (**default**: *none*)
-- actual representation of the directive definition. Value can contain YAML formatting as appropriate.
+- actual representation of the directive definition. Value can contain formatting as expected to be set in a `fluentd/td-agent.conf` config file. See [here](https://github.com/fluent/fluentd/tree/master/example) for examples.
 
 #### Launch
 
