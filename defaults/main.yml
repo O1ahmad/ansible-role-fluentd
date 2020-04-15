@@ -5,6 +5,7 @@ install_type: gem
 gem_version: "1.7.4"
 
 package_url: ''
+_package_install_noop_msg: ''
 
 _config_dir: "/etc/fluent"
 _config_file: fluent.conf
