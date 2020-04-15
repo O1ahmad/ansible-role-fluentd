@@ -11,7 +11,7 @@
   register: package_tmp
   tags:
     - install
-    - archive
+    - package
 
 - name: Execute Fluentd package install script
   become: true
@@ -24,4 +24,4 @@
     - Restart service
   tags:
     - install
-    - archive
+    - package
