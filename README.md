@@ -46,10 +46,6 @@ Variables are available and organized according to the following software & mach
 
 #### Install
 
-`fluentd`can be installed using OS package management systems (e.g `apt`, `yum`) or as a stand-alone Ruby gem obtained from the official Ruby community gem hosting site.
-
-_The following variables can be customized to control various aspects of this installation process, ranging from software version and source location of binaries to the installation type (and ultimately, installation directory where they are stored):_
-
 `fluentd_user: <service-user-name>` (**default**: *fluentd*)
 - dedicated service user and group used by `fluentd` for privilege separation (see [here](https://www.beyondtrust.com/blog/entry/how-separation-privilege-improves-security) for details)
 
@@ -141,10 +137,6 @@ config:
 
 #### Launch
 
-Running the `fluentd` data collector is accomplished utilizing the [systemd](https://www.freedesktop.org/wiki/Software/systemd/) service management tool for both *package* and *gem* installations. Launched as background processes or daemons subject to the configuration and execution potential provided by the underlying management framework, launch of `fluentd` can be set to adhere to system administrative policies right for your environment and organization.
-
-_The following variables can be customized to manage the service's **systemd** service unit definition and execution profile/policy:_
-
 `extra_run_args: <fluentd-cli-options>` (**default**: `[]`)
 - list of `fluentd` commandline arguments to pass to the binary at runtime for customizing launch. Supporting full expression of `fluentd`'s cli, this variable enables the launch to be customized according to the user's specification.
 
@@ -160,10 +152,6 @@ custom_unit_properties:
 Reference the [systemd.service](http://man7.org/linux/man-pages/man5/systemd.service.5.html) *man* page for a configuration overview and reference.
 
 #### Uninstall
-
-Support for uninstalling and removing artifacts necessary for provisioning allows for users/operators to return a target host to its configured state prior to application of this role. This can be useful for recycling nodes and roles and perhaps providing more graceful/managed transitions between tooling upgrades.
-
-_The following variable(s) can be customized to manage this uninstall process:_
 
 `perform_uninstall: <true | false>` (**default**: `false`)
 - whether to uninstall and remove all artifacts and remnants of this `fluentd` installation on a target host (**see**: `handlers/main.yml` for details)
