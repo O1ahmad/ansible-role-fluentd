@@ -3,10 +3,8 @@
 
 Ansible Role :cyclone: :ticket: Fluentd
 =========
-[![Galaxy Role](https://img.shields.io/ansible/role/45215.svg)](https://galaxy.ansible.com/0x0I/fluentd)
+[![Galaxy Role](https://img.shields.io/ansible/role/d/0x0i/fluentd)](https://galaxy.ansible.com/0x0I/fluentd)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/0x0I/ansible-role-fluentd?color=yellow)
-[![Downloads](https://img.shields.io/ansible/role/d/45215.svg?color=lightgrey)](https://galaxy.ansible.com/0x0I/fluentd)
-[![Build Status](https://travis-ci.org/0x0I/ansible-role-fluentd.svg?branch=master)](https://travis-ci.org/0x0I/ansible-role-fluentd)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
 
 **Table of Contents**
